@@ -1,18 +1,17 @@
 package main
 
 import (
-	"context"
+	"database/sql"
 	"log"
 
 	"github.com/Doehnert/crud-hexa/src/adapter/input/controller/routes"
 	controller "github.com/Doehnert/crud-hexa/src/adapter/input/controller/user"
-	"github.com/Doehnert/crud-hexa/src/adapter/output/repository"
+	mysqlrepo "github.com/Doehnert/crud-hexa/src/adapter/output/repository/mysqlRepo"
 	"github.com/Doehnert/crud-hexa/src/application/services"
-	"github.com/Doehnert/crud-hexa/src/configuration/database/mongodb"
+	"github.com/Doehnert/crud-hexa/src/configuration/database/mysql"
 	"github.com/Doehnert/crud-hexa/src/configuration/logger"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func main() {
@@ -24,13 +23,14 @@ func main() {
 		return
 	}
 
-	database, err := mongodb.NewMongoDBConnection(context.Background())
-	if err != nil {
-		log.Fatalf(
-			"Error trying to connect to database, error=%s\n",
-			err.Error(),
-		)
-	}
+	database, err := mysql.NewMySQLConnection()
+	// database, err := mongodb.NewMongoDBConnection(context.Background())
+	// if err != nil {
+	// 	log.Fatalf(
+	// 		"Error trying to connect to database, error=%s\n",
+	// 		err.Error(),
+	// 	)
+	// }
 
 	userController := initDependencies(database)
 
@@ -43,9 +43,18 @@ func main() {
 }
 
 func initDependencies(
-	database *mongo.Database,
+	database *sql.DB,
 ) controller.UserControllerInterface {
-	userRepo := repository.NewUserRepository(database)
+	// userRepo := mongodbrepo.NewUserRepository(database)
+	userRepo := mysqlrepo.NewUserRepository(database)
 	userService := services.NewUserDomainService(userRepo)
 	return controller.NewUserController(userService)
 }
+
+// func initDependencies(
+// 	database *mongo.Database,
+// ) controller.UserControllerInterface {
+// 	userRepo := mongodbrepo.NewUserRepository(database)
+// 	userService := services.NewUserDomainService(userRepo)
+// 	return controller.NewUserController(userService)
+// }

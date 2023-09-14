@@ -8,7 +8,7 @@ import (
 	"github.com/Doehnert/crud-hexa/src/configuration/logger"
 	"github.com/Doehnert/crud-hexa/src/configuration/rest_errors"
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	// "go.mongodb.org/mongo-driver/bson/primitive"
 	"go.uber.org/zap"
 )
 
@@ -19,15 +19,15 @@ func (uc *userController) FindUserByID(c *gin.Context) {
 	userId := c.Param("userId")
 
 	// Validate if userId is valid
-	if _, err := primitive.ObjectIDFromHex(userId); err != nil {
-		logger.Error("Error trying to validate userId",
-			err,
-			zap.String("journey", "findUserById"))
+	// if _, err := primitive.ObjectIDFromHex(userId); err != nil {
+	// 	logger.Error("Error trying to validate userId",
+	// 		err,
+	// 		zap.String("journey", "findUserById"))
 
-		errorMessage := rest_errors.NewBadRequestError("UserID is not a valid id")
-		c.JSON(errorMessage.Code, errorMessage)
-		return
-	}
+	// 	errorMessage := rest_errors.NewBadRequestError("UserID is not a valid id")
+	// 	c.JSON(errorMessage.Code, errorMessage)
+	// 	return
+	// }
 
 	domainResult, err := uc.userService.FindUserByIDServices(userId)
 	if err != nil {

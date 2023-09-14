@@ -1,4 +1,4 @@
-package repository
+package mongodbrepo
 
 import (
 	"context"
@@ -20,12 +20,15 @@ func (ur *userRepository) UpdateUser(userId string, userDomain domain.UserDomain
 	collection := ur.databaseConnection.Collection(collection_name)
 
 	domainEntity := converter.ConvertDomainToEntity(userDomain)
-	userIdHex, _ := primitive.ObjectIDFromHex(userId)
+	userIdHex, err := primitive.ObjectIDFromHex(userId)
+	if err != nil {
+		return rest_errors.NewBadRequestError("Invalid user id")
+	}
 
 	filter := bson.D{{Key: "_id", Value: userIdHex}}
 	update := bson.D{{Key: "$set", Value: domainEntity}}
 
-	_, err := collection.UpdateOne(context.Background(), filter, update)
+	_, err = collection.UpdateOne(context.Background(), filter, update)
 	if err != nil {
 		logger.Error(
 			"Error trying to update user",

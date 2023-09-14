@@ -1,4 +1,4 @@
-package repository
+package mongodbrepo
 
 import (
 	"github.com/Doehnert/crud-hexa/src/application/domain"

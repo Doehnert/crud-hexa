@@ -6,10 +6,8 @@ import (
 	"github.com/Doehnert/crud-hexa/src/adapter/input/model/request"
 	"github.com/Doehnert/crud-hexa/src/application/domain"
 	"github.com/Doehnert/crud-hexa/src/configuration/logger"
-	"github.com/Doehnert/crud-hexa/src/configuration/rest_errors"
 	"github.com/Doehnert/crud-hexa/src/configuration/validation"
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.uber.org/zap"
 )
 
@@ -26,11 +24,11 @@ func (uc *userController) UpdateUser(c *gin.Context) {
 	}
 
 	userId := c.Param("userId")
-	if _, err := primitive.ObjectIDFromHex(userId); err != nil {
-		errRest := rest_errors.NewBadRequestError("Invalid userId, must be a hex value")
-		c.JSON(errRest.Code, errRest)
-		return
-	}
+	// if _, err := primitive.ObjectIDFromHex(userId); err != nil {
+	// 	errRest := rest_errors.NewBadRequestError("Invalid userId, must be a hex value")
+	// 	c.JSON(errRest.Code, errRest)
+	// 	return
+	// }
 
 	// Convert Request to Domain
 	userDomain := &domain.UserDomain{

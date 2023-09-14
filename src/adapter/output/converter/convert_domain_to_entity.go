@@ -15,3 +15,13 @@ func ConvertDomainToEntity(
 		Age:      domain.Age,
 	}
 }
+func ConvertDomainToEntityMysql(
+	domain domain.UserDomain,
+) *entity.UserEntityMysql {
+	return &entity.UserEntityMysql{
+		Email:    domain.Email,
+		Password: domain.Password,
+		Name:     domain.Name,
+		Age:      domain.Age,
+	}
+}
