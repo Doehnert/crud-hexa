@@ -25,12 +25,12 @@ func main() {
 
 	database, err := mysql.NewMySQLConnection()
 	// database, err := mongodb.NewMongoDBConnection(context.Background())
-	// if err != nil {
-	// 	log.Fatalf(
-	// 		"Error trying to connect to database, error=%s\n",
-	// 		err.Error(),
-	// 	)
-	// }
+	if err != nil {
+		log.Fatalf(
+			"Error trying to connect to database, error=%s\n",
+			err.Error(),
+		)
+	}
 
 	userController := initDependencies(database)
 

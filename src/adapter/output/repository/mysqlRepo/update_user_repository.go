@@ -7,7 +7,7 @@ import (
 	"github.com/Doehnert/crud-hexa/src/configuration/rest_errors"
 )
 
-func (ur *userRepository) UpdateUser(userId string, userDomain domain.UserDomain,
+func (ur *userRepository) UpdateUser(userId string, userDomain domain.UserDomainInterface,
 ) *rest_errors.RestErr {
 	logger.Info("Init updateUser repo")
 

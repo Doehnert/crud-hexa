@@ -14,7 +14,7 @@ import (
 
 func (ur *userRepository) FindUserByEmail(
 	email string,
-) (*domain.UserDomain, *rest_errors.RestErr) {
+) (domain.UserDomainInterface, *rest_errors.RestErr) {
 	logger.Info("Init findUserByEmail repo",
 		zap.String("journey", "findUserByEmail"))
 
@@ -47,7 +47,7 @@ func (ur *userRepository) FindUserByEmail(
 
 func (ur *userRepository) FindUserByID(
 	id string,
-) (*domain.UserDomain, *rest_errors.RestErr) {
+) (domain.UserDomainInterface, *rest_errors.RestErr) {
 	logger.Info("Init findUseryID repo",
 		zap.String("journey", "findUserByID"))
 
@@ -77,7 +77,7 @@ func (ur *userRepository) FindUserByID(
 }
 
 func (ur *userRepository) FindUserByEmailAndPassword(email, password string) (
-	*domain.UserDomain, *rest_errors.RestErr) {
+	domain.UserDomainInterface, *rest_errors.RestErr) {
 	logger.Info("Init findUser repo", zap.String("journey", "findUserByEmailAndPassword"))
 
 	selectQuery := "SELECT id, email, password, name, age FROM users WHERE email = ? AND password = ?"

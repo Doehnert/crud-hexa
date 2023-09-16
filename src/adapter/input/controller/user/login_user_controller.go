@@ -24,7 +24,7 @@ func (uc *userController) LoginUser(c *gin.Context) {
 	}
 
 	// Convert Request to Domain
-	userDomain := domain.UserDomain{
+	userDomain := &domain.UserDomain{
 		Email:    userRequest.Email,
 		Password: userRequest.Password,
 	}

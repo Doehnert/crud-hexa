@@ -6,22 +6,22 @@ import (
 )
 
 func ConvertDomainToEntity(
-	domain domain.UserDomain,
+	domain domain.UserDomainInterface,
 ) *entity.UserEntity {
 	return &entity.UserEntity{
-		Email:    domain.Email,
-		Password: domain.Password,
-		Name:     domain.Name,
-		Age:      domain.Age,
+		Email:    domain.GetEmail(),
+		Password: domain.GetPassword(),
+		Name:     domain.GetName(),
+		Age:      domain.GetAge(),
 	}
 }
 func ConvertDomainToEntityMysql(
-	domain domain.UserDomain,
+	domain domain.UserDomainInterface,
 ) *entity.UserEntityMysql {
 	return &entity.UserEntityMysql{
-		Email:    domain.Email,
-		Password: domain.Password,
-		Name:     domain.Name,
-		Age:      domain.Age,
+		Email:    domain.GetEmail(),
+		Password: domain.GetPassword(),
+		Name:     domain.GetName(),
+		Age:      domain.GetAge(),
 	}
 }

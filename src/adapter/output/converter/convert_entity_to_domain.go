@@ -23,7 +23,7 @@ func ConvertEntityToDomain(
 
 func ConvertMysqlEntityToDomain(
 	entity entity.UserEntityMysql,
-) *domain.UserDomain {
+) domain.UserDomainInterface {
 	domainConverted := &domain.UserDomain{
 		Id:       strconv.FormatInt(entity.ID, 10),
 		Email:    entity.Email,

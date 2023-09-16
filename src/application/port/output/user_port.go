@@ -7,24 +7,24 @@ import (
 
 type UserPort interface {
 	CreateUser(
-		userDomain domain.UserDomain,
-	) (*domain.UserDomain, *rest_errors.RestErr)
+		userDomain domain.UserDomainInterface,
+	) (domain.UserDomainInterface, *rest_errors.RestErr)
 
 	FindUserByEmail(
 		email string,
-	) (*domain.UserDomain, *rest_errors.RestErr)
+	) (domain.UserDomainInterface, *rest_errors.RestErr)
 
 	FindUserByID(
 		id string,
-	) (*domain.UserDomain, *rest_errors.RestErr)
+	) (domain.UserDomainInterface, *rest_errors.RestErr)
 
 	FindUserByEmailAndPassword(
 		email, password string,
-	) (*domain.UserDomain, *rest_errors.RestErr)
+	) (domain.UserDomainInterface, *rest_errors.RestErr)
 
 	UpdateUser(
 		userId string,
-		userDomain domain.UserDomain,
+		userDomain domain.UserDomainInterface,
 	) *rest_errors.RestErr
 
 	DeleteUser(

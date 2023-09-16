@@ -7,13 +7,13 @@ import (
 	"go.uber.org/zap"
 )
 
-func (ud *userDomainService) CreateUserServices(userDomain domain.UserDomain) (
-	*domain.UserDomain, *rest_errors.RestErr,
+func (ud *userDomainService) CreateUserServices(userDomain domain.UserDomainInterface) (
+	domain.UserDomainInterface, *rest_errors.RestErr,
 ) {
 	logger.Info("Init createUser service",
 		zap.String("journey", "createUser"))
 
-	user, _ := ud.FindUserByEmailServices(userDomain.Email)
+	user, _ := ud.FindUserByEmailServices(userDomain.GetEmail())
 	if user != nil {
 		return nil, rest_errors.NewBadRequestError("Email is already registered in another account")
 	}
@@ -28,7 +28,7 @@ func (ud *userDomainService) CreateUserServices(userDomain domain.UserDomain) (
 	}
 
 	logger.Info("CreateUser service executed successfully",
-		zap.String("userId", userDomainRepo.Id),
+		zap.String("userId", userDomainRepo.GetId()),
 		zap.String("journey", "createUser"))
 
 	return userDomainRepo, nil

@@ -8,7 +8,7 @@ import (
 	"github.com/Doehnert/crud-hexa/src/configuration/rest_errors"
 )
 
-func (ur *userRepository) CreateUser(userDomain domain.UserDomain) (*domain.UserDomain, *rest_errors.RestErr) {
+func (ur *userRepository) CreateUser(userDomain domain.UserDomainInterface) (domain.UserDomainInterface, *rest_errors.RestErr) {
 	insertQuery := `
   INSERT INTO users (email, password, name, age)
   VALUES (?,?,?,?)
@@ -23,13 +23,13 @@ func (ur *userRepository) CreateUser(userDomain domain.UserDomain) (*domain.User
 
 	insertedId, _ := result.LastInsertId()
 
-	resultDomain := &domain.UserDomain{
-		Id:       strconv.FormatInt(insertedId, 10),
-		Email:    userDomain.Email,
-		Password: userDomain.Password,
-		Name:     userDomain.Name,
-		Age:      userDomain.Age,
-	}
+	resultDomain := domain.NewUserDomain(
+		strconv.FormatInt(insertedId, 10),
+		userDomain.GetEmail(),
+		userDomain.GetPassword(),
+		userDomain.GetName(),
+		userDomain.GetAge(),
+	)
 
 	return resultDomain, nil
 }

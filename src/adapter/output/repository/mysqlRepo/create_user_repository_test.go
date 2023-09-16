@@ -11,18 +11,19 @@ import (
 func TestUserRepoMysql_CreateUser(t *testing.T) {
 	db, mock, err := sqlmock.New()
 	if err != nil {
-
 		t.Fatalf("Error creating mock database connection")
 	}
 	defer db.Close()
 
 	userRepository := NewUserRepository(db)
-	domain := domain.UserDomain{
+	domain := &domain.UserDomain{
+		Id:       "id",
 		Email:    "test@test.com",
 		Name:     "test",
 		Password: "test",
 		Age:      90,
 	}
+
 	// Set up expectations for database queries using the mock object
 	mock.ExpectExec("INSERT INTO users").WithArgs().WillReturnResult(sqlmock.NewResult(1, 1))
 
@@ -31,8 +32,8 @@ func TestUserRepoMysql_CreateUser(t *testing.T) {
 
 	// Asserts
 	assert.Nil(t, err)
-	assert.EqualValues(t, userDomain.Email, domain.Email)
-	assert.EqualValues(t, userDomain.Name, domain.Name)
-	assert.EqualValues(t, userDomain.Age, domain.Age)
-	assert.EqualValues(t, userDomain.Password, domain.Password)
+	assert.EqualValues(t, userDomain.GetEmail(), domain.GetEmail())
+	assert.EqualValues(t, userDomain.GetName(), domain.GetName())
+	assert.EqualValues(t, userDomain.GetAge(), domain.GetAge())
+	assert.EqualValues(t, userDomain.GetPassword(), domain.GetPassword())
 }

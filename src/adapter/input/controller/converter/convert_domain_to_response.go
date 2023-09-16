@@ -5,11 +5,11 @@ import (
 	"github.com/Doehnert/crud-hexa/src/application/domain"
 )
 
-func ConvertDomainToResponse(userDomain *domain.UserDomain) response.UserResponse {
+func ConvertDomainToResponse(userDomain domain.UserDomainInterface) response.UserResponse {
 	return response.UserResponse{
-		ID:    userDomain.Id,
-		Email: userDomain.Email,
-		Name:  userDomain.Name,
-		Age:   userDomain.Age,
+		ID:    userDomain.GetId(),
+		Email: userDomain.GetEmail(),
+		Name:  userDomain.GetName(),
+		Age:   userDomain.GetAge(),
 	}
 }

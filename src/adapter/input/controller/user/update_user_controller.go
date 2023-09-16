@@ -35,7 +35,7 @@ func (uc *userController) UpdateUser(c *gin.Context) {
 		Name: userRequest.Name,
 		Age:  userRequest.Age,
 	}
-	err := uc.userService.UpdateUserService(userId, *userDomain)
+	err := uc.userService.UpdateUserService(userId, userDomain)
 	if err != nil {
 		logger.Error("Error trying to call UpdateUser service",
 			err,
